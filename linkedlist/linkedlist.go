@@ -14,12 +14,12 @@ type LinkedList[T any] struct {
 }
 
 // Append adds a new node with the given data to the end of the list
-func (ll *LinkedList[T]) Append(data T) {
+func (ll *LinkedList[T]) Append(data T) *Node[T] {
 	newNode := &Node[T]{Data: data, Next: nil}
 
 	if ll.Head == nil {
 		ll.Head = newNode
-		return
+		return newNode
 	}
 
 	current := ll.Head
@@ -27,6 +27,7 @@ func (ll *LinkedList[T]) Append(data T) {
 		current = current.Next
 	}
 	current.Next = newNode
+	return newNode
 }
 
 // Print displays all the elements in the linked list
@@ -61,4 +62,15 @@ func (ll *LinkedList[T]) Length() int {
 		count++
 	}
 	return count
+}
+
+func (ll *LinkedList[T]) Tail() *Node[T] {
+	current := ll.Head
+	for current != nil {
+		if current.Next == nil {
+			return current
+		}
+		current = current.Next
+	}
+	return nil
 }

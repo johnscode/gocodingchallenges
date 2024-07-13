@@ -19,9 +19,8 @@ func TestReverseLinkedList(t *testing.T) {
 	ll.Append(3)
 	ll.Append(4)
 
-	//ll.Print()
 	ll.ReverseLinkedList()
-	//ll.Print()
+
 	if ll.Head.Data != 4 {
 		t.Errorf("expected %d, got %d", 4, ll.Head.Data)
 	}
