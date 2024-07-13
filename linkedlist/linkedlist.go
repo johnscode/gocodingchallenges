@@ -52,3 +52,13 @@ func (ll *LinkedList[T]) ReverseLinkedList() {
 		ptr = next
 	}
 }
+
+func (ll *LinkedList[T]) Length() int {
+	count := 0
+	current := ll.Head
+	for current != nil {
+		current = current.Next
+		count++
+	}
+	return count
+}
