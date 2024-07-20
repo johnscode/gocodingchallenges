@@ -74,3 +74,30 @@ func (ll *LinkedList[T]) Tail() *Node[T] {
 	}
 	return nil
 }
+
+func (ll *LinkedList[T]) RemoveNthFromEnd(n int) *Node[T] {
+	if n == 0 {
+		return nil
+	}
+	fast := ll.Head // this moves to the end
+	slow := ll.Head // this one behind the nth from end, 'n' is 1-based
+
+	for count := 0; count < n; count++ {
+		if fast == nil { // list is too short
+			return nil
+		}
+		fast = fast.Next
+	}
+	if fast == nil { // special case, removing head
+		res := ll.Head
+		ll.Head = ll.Head.Next
+		return res
+	}
+	for fast != nil && fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next
+	}
+	res := slow.Next
+	slow.Next = slow.Next.Next
+	return res
+}
