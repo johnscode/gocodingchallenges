@@ -44,18 +44,10 @@ type OddEven struct {
 func fanin(inputs []chan OddEven) chan OddEven {
 	output := make(chan OddEven)
 
-	//var faninFunc = func(id int, input chan OddEven, output chan OddEven, wg *sync.WaitGroup) {
-	//	for value := range input {
-	//		output <- value
-	//	}
-	//	fmt.Printf("done merging source %d\n", id)
-	//	wg.Done()
-	//}
-
 	var wg sync.WaitGroup
 	for i, input := range inputs {
 		wg.Add(1)
-		//go faninFunc(i, input, output, &wg)
+		// explicit params to capture loop vars
 		go func(id int, input chan OddEven, output chan OddEven, wg *sync.WaitGroup) {
 			for value := range input {
 				output <- value
