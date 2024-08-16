@@ -13,6 +13,7 @@ type DoubleLinkedList[T any] interface {
 	RemoveTail() *DoubleNode[T]
 	MoveToHead(node *DoubleNode[T])
 	Print()
+	Length() int
 }
 
 func NewDoubleLinkedList[T any]() DoubleLinkedList[T] {
@@ -80,6 +81,10 @@ func (ll *DoubleLinkedListImpl[T]) Push(data T) *DoubleNode[T] {
 func (ll *DoubleLinkedListImpl[T]) Remove(node *DoubleNode[T]) *DoubleNode[T] {
 
 	switch {
+	case node == ll.head && node == ll.tail:
+		ll.head = nil
+		ll.tail = nil
+		return node
 	case node == ll.head:
 		ll.head = ll.head.Next
 		ll.head.Prev = nil
@@ -115,4 +120,14 @@ func (ll *DoubleLinkedListImpl[T]) MoveToHead(node *DoubleNode[T]) {
 	ll.head.Prev = node
 	ll.head = node
 	ll.head.Prev = nil
+}
+
+func (ll *DoubleLinkedListImpl[T]) Length() int {
+	current := ll.head
+	count := 0
+	for current != nil {
+		current = current.Next
+		count++
+	}
+	return count
 }

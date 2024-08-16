@@ -216,3 +216,11 @@ func TestDoubleLinkedList_Print(t *testing.T) {
 	list := createThreeItemList(data, data2, data3)
 	list.Print()
 }
+
+func TestNewDoubleLinkedList_Length(t *testing.T) {
+	list := createThreeItemList(data, data2, data3)
+	length := list.Length()
+	if length != 3 {
+		t.Errorf("expected %d, got %d", 3, length)
+	}
+}
